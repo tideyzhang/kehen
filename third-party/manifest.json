@@ -1,0 +1,555 @@
+[
+  {
+    "name": "@fast-csv/format",
+    "version": "4.3.5",
+    "license": "MIT",
+    "source": "git+https://github.com/C2FO/fast-csv.git",
+    "path": "third-party/licenses/@fast-csv__format@4.3.5"
+  },
+  {
+    "name": "@fast-csv/parse",
+    "version": "4.3.6",
+    "license": "MIT",
+    "source": "git+https://github.com/C2FO/fast-csv.git",
+    "path": "third-party/licenses/@fast-csv__parse@4.3.6"
+  },
+  {
+    "name": "@types/node",
+    "version": "14.18.63",
+    "license": "MIT",
+    "source": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+    "path": "third-party/licenses/@types__node@14.18.63"
+  },
+  {
+    "name": "archiver",
+    "version": "5.3.2",
+    "license": "MIT",
+    "source": "https://github.com/archiverjs/node-archiver.git",
+    "path": "third-party/licenses/archiver@5.3.2"
+  },
+  {
+    "name": "archiver-utils",
+    "version": "2.1.0",
+    "license": "MIT",
+    "source": "https://github.com/archiverjs/archiver-utils.git",
+    "path": "third-party/licenses/archiver-utils@2.1.0"
+  },
+  {
+    "name": "readable-stream",
+    "version": "2.3.8",
+    "license": "MIT",
+    "source": "git://github.com/nodejs/readable-stream",
+    "path": "third-party/licenses/readable-stream@2.3.8"
+  },
+  {
+    "name": "safe-buffer",
+    "version": "5.1.2",
+    "license": "MIT",
+    "source": "git://github.com/feross/safe-buffer.git",
+    "path": "third-party/licenses/safe-buffer@5.1.2"
+  },
+  {
+    "name": "string_decoder",
+    "version": "1.1.1",
+    "license": "MIT",
+    "source": "git://github.com/nodejs/string_decoder.git",
+    "path": "third-party/licenses/string_decoder@1.1.1"
+  },
+  {
+    "name": "async",
+    "version": "3.2.6",
+    "license": "MIT",
+    "source": "https://github.com/caolan/async.git",
+    "path": "third-party/licenses/async@3.2.6"
+  },
+  {
+    "name": "balanced-match",
+    "version": "1.0.2",
+    "license": "MIT",
+    "source": "git://github.com/juliangruber/balanced-match.git",
+    "path": "third-party/licenses/balanced-match@1.0.2"
+  },
+  {
+    "name": "base64-js",
+    "version": "1.5.1",
+    "license": "MIT",
+    "source": "git://github.com/beatgammit/base64-js.git",
+    "path": "third-party/licenses/base64-js@1.5.1"
+  },
+  {
+    "name": "bl",
+    "version": "4.1.0",
+    "license": "MIT",
+    "source": "https://github.com/rvagg/bl.git",
+    "path": "third-party/licenses/bl@4.1.0"
+  },
+  {
+    "name": "bluebird",
+    "version": "3.7.2",
+    "license": "MIT",
+    "source": "git://github.com/petkaantonov/bluebird.git",
+    "path": "third-party/licenses/bluebird@3.7.2"
+  },
+  {
+    "name": "brace-expansion",
+    "version": "1.1.21",
+    "license": "MIT",
+    "source": "git://github.com/juliangruber/brace-expansion.git",
+    "path": "third-party/licenses/brace-expansion@1.1.21"
+  },
+  {
+    "name": "buffer",
+    "version": "5.7.1",
+    "license": "MIT",
+    "source": "git://github.com/feross/buffer.git",
+    "path": "third-party/licenses/buffer@5.7.1"
+  },
+  {
+    "name": "buffer-crc32",
+    "version": "0.2.13",
+    "license": "MIT",
+    "source": "git://github.com/brianloveswords/buffer-crc32.git",
+    "path": "third-party/licenses/buffer-crc32@0.2.13"
+  },
+  {
+    "name": "compress-commons",
+    "version": "4.1.2",
+    "license": "MIT",
+    "source": "https://github.com/archiverjs/node-compress-commons.git",
+    "path": "third-party/licenses/compress-commons@4.1.2"
+  },
+  {
+    "name": "concat-map",
+    "version": "0.0.1",
+    "license": "MIT",
+    "source": "git://github.com/substack/node-concat-map.git",
+    "path": "third-party/licenses/concat-map@0.0.1"
+  },
+  {
+    "name": "core-util-is",
+    "version": "1.0.3",
+    "license": "MIT",
+    "source": "git://github.com/isaacs/core-util-is",
+    "path": "third-party/licenses/core-util-is@1.0.3"
+  },
+  {
+    "name": "crc-32",
+    "version": "1.2.2",
+    "license": "Apache-2.0",
+    "source": "git://github.com/SheetJS/js-crc32.git",
+    "path": "third-party/licenses/crc-32@1.2.2"
+  },
+  {
+    "name": "crc32-stream",
+    "version": "4.0.3",
+    "license": "MIT",
+    "source": "https://github.com/archiverjs/node-crc32-stream.git",
+    "path": "third-party/licenses/crc32-stream@4.0.3"
+  },
+  {
+    "name": "dayjs",
+    "version": "1.11.23",
+    "license": "MIT",
+    "source": "https://github.com/iamkun/dayjs.git",
+    "path": "third-party/licenses/dayjs@1.11.23"
+  },
+  {
+    "name": "duplexer2",
+    "version": "0.1.4",
+    "license": "BSD-3-Clause",
+    "source": "deoxxa/duplexer2",
+    "path": "third-party/licenses/duplexer2@0.1.4"
+  },
+  {
+    "name": "end-of-stream",
+    "version": "1.4.5",
+    "license": "MIT",
+    "source": "git://github.com/mafintosh/end-of-stream.git",
+    "path": "third-party/licenses/end-of-stream@1.4.5"
+  },
+  {
+    "name": "exceljs",
+    "version": "4.4.0",
+    "license": "MIT",
+    "source": "https://github.com/exceljs/exceljs.git",
+    "path": "third-party/licenses/exceljs@4.4.0"
+  },
+  {
+    "name": "fast-csv",
+    "version": "4.3.6",
+    "license": "MIT",
+    "source": "git+https://github.com/C2FO/fast-csv.git",
+    "path": "third-party/licenses/fast-csv@4.3.6"
+  },
+  {
+    "name": "fs-constants",
+    "version": "1.0.0",
+    "license": "MIT",
+    "source": "https://github.com/mafintosh/fs-constants.git",
+    "path": "third-party/licenses/fs-constants@1.0.0"
+  },
+  {
+    "name": "fs.realpath",
+    "version": "1.0.0",
+    "license": "ISC",
+    "source": "git+https://github.com/isaacs/fs.realpath.git",
+    "path": "third-party/licenses/fs.realpath@1.0.0"
+  },
+  {
+    "name": "glob",
+    "version": "7.2.3",
+    "license": "ISC",
+    "source": "git://github.com/isaacs/node-glob.git",
+    "path": "third-party/licenses/glob@7.2.3"
+  },
+  {
+    "name": "graceful-fs",
+    "version": "4.2.11",
+    "license": "ISC",
+    "source": "https://github.com/isaacs/node-graceful-fs",
+    "path": "third-party/licenses/graceful-fs@4.2.11"
+  },
+  {
+    "name": "ieee754",
+    "version": "1.2.1",
+    "license": "BSD-3-Clause",
+    "source": "git://github.com/feross/ieee754.git",
+    "path": "third-party/licenses/ieee754@1.2.1"
+  },
+  {
+    "name": "immediate",
+    "version": "3.0.6",
+    "license": "MIT",
+    "source": "git://github.com/calvinmetcalf/immediate.git",
+    "path": "third-party/licenses/immediate@3.0.6"
+  },
+  {
+    "name": "inflight",
+    "version": "1.0.6",
+    "license": "ISC",
+    "source": "https://github.com/npm/inflight.git",
+    "path": "third-party/licenses/inflight@1.0.6"
+  },
+  {
+    "name": "inherits",
+    "version": "2.0.4",
+    "license": "ISC",
+    "source": "git://github.com/isaacs/inherits",
+    "path": "third-party/licenses/inherits@2.0.4"
+  },
+  {
+    "name": "isarray",
+    "version": "1.0.0",
+    "license": "MIT",
+    "source": "git://github.com/juliangruber/isarray.git",
+    "path": "third-party/licenses/isarray@1.0.0"
+  },
+  {
+    "name": "jsonfile",
+    "version": "6.2.1",
+    "license": "MIT",
+    "source": "git@github.com:jprichardson/node-jsonfile.git",
+    "path": "third-party/licenses/jsonfile@6.2.1"
+  },
+  {
+    "name": "jszip",
+    "version": "3.10.2",
+    "license": "(MIT OR GPL-3.0-or-later)",
+    "source": "https://github.com/Stuk/jszip.git",
+    "path": "third-party/licenses/jszip@3.10.2"
+  },
+  {
+    "name": "lazystream",
+    "version": "1.0.1",
+    "license": "MIT",
+    "source": "https://github.com/jpommerening/node-lazystream.git",
+    "path": "third-party/licenses/lazystream@1.0.1"
+  },
+  {
+    "name": "lie",
+    "version": "3.3.0",
+    "license": "MIT",
+    "source": "https://github.com/calvinmetcalf/lie.git",
+    "path": "third-party/licenses/lie@3.3.0"
+  },
+  {
+    "name": "lodash.defaults",
+    "version": "4.2.0",
+    "license": "MIT",
+    "source": "lodash/lodash",
+    "path": "third-party/licenses/lodash.defaults@4.2.0"
+  },
+  {
+    "name": "lodash.difference",
+    "version": "4.5.0",
+    "license": "MIT",
+    "source": "lodash/lodash",
+    "path": "third-party/licenses/lodash.difference@4.5.0"
+  },
+  {
+    "name": "lodash.escaperegexp",
+    "version": "4.1.2",
+    "license": "MIT",
+    "source": "lodash/lodash",
+    "path": "third-party/licenses/lodash.escaperegexp@4.1.2"
+  },
+  {
+    "name": "lodash.flatten",
+    "version": "4.4.0",
+    "license": "MIT",
+    "source": "lodash/lodash",
+    "path": "third-party/licenses/lodash.flatten@4.4.0"
+  },
+  {
+    "name": "lodash.groupby",
+    "version": "4.6.0",
+    "license": "MIT",
+    "source": "lodash/lodash",
+    "path": "third-party/licenses/lodash.groupby@4.6.0"
+  },
+  {
+    "name": "lodash.isboolean",
+    "version": "3.0.3",
+    "license": "MIT",
+    "source": "lodash/lodash",
+    "path": "third-party/licenses/lodash.isboolean@3.0.3"
+  },
+  {
+    "name": "lodash.isequal",
+    "version": "4.5.0",
+    "license": "MIT",
+    "source": "lodash/lodash",
+    "path": "third-party/licenses/lodash.isequal@4.5.0"
+  },
+  {
+    "name": "lodash.isfunction",
+    "version": "3.0.9",
+    "license": "MIT",
+    "source": "lodash/lodash",
+    "path": "third-party/licenses/lodash.isfunction@3.0.9"
+  },
+  {
+    "name": "lodash.isnil",
+    "version": "4.0.0",
+    "license": "MIT",
+    "source": "lodash/lodash",
+    "path": "third-party/licenses/lodash.isnil@4.0.0"
+  },
+  {
+    "name": "lodash.isplainobject",
+    "version": "4.0.6",
+    "license": "MIT",
+    "source": "lodash/lodash",
+    "path": "third-party/licenses/lodash.isplainobject@4.0.6"
+  },
+  {
+    "name": "lodash.isundefined",
+    "version": "3.0.1",
+    "license": "MIT",
+    "source": "lodash/lodash",
+    "path": "third-party/licenses/lodash.isundefined@3.0.1"
+  },
+  {
+    "name": "lodash.union",
+    "version": "4.6.0",
+    "license": "MIT",
+    "source": "lodash/lodash",
+    "path": "third-party/licenses/lodash.union@4.6.0"
+  },
+  {
+    "name": "lodash.uniq",
+    "version": "4.5.0",
+    "license": "MIT",
+    "source": "lodash/lodash",
+    "path": "third-party/licenses/lodash.uniq@4.5.0"
+  },
+  {
+    "name": "minimatch",
+    "version": "3.1.5",
+    "license": "ISC",
+    "source": "git://github.com/isaacs/minimatch.git",
+    "path": "third-party/licenses/minimatch@3.1.5"
+  },
+  {
+    "name": "node-int64",
+    "version": "0.4.0",
+    "license": "MIT",
+    "source": "https://github.com/broofa/node-int64",
+    "path": "third-party/licenses/node-int64@0.4.0"
+  },
+  {
+    "name": "normalize-path",
+    "version": "3.0.0",
+    "license": "MIT",
+    "source": "jonschlinkert/normalize-path",
+    "path": "third-party/licenses/normalize-path@3.0.0"
+  },
+  {
+    "name": "once",
+    "version": "1.4.0",
+    "license": "ISC",
+    "source": "git://github.com/isaacs/once",
+    "path": "third-party/licenses/once@1.4.0"
+  },
+  {
+    "name": "pako",
+    "version": "1.0.11",
+    "license": "(MIT AND Zlib)",
+    "source": "nodeca/pako",
+    "path": "third-party/licenses/pako@1.0.11"
+  },
+  {
+    "name": "path-is-absolute",
+    "version": "1.0.1",
+    "license": "MIT",
+    "source": "sindresorhus/path-is-absolute",
+    "path": "third-party/licenses/path-is-absolute@1.0.1"
+  },
+  {
+    "name": "process-nextick-args",
+    "version": "2.0.1",
+    "license": "MIT",
+    "source": "https://github.com/calvinmetcalf/process-nextick-args.git",
+    "path": "third-party/licenses/process-nextick-args@2.0.1"
+  },
+  {
+    "name": "readable-stream",
+    "version": "3.6.2",
+    "license": "MIT",
+    "source": "git://github.com/nodejs/readable-stream",
+    "path": "third-party/licenses/readable-stream@3.6.2"
+  },
+  {
+    "name": "readdir-glob",
+    "version": "1.1.3",
+    "license": "Apache-2.0",
+    "source": "git://github.com/Yqnn/node-readdir-glob.git",
+    "path": "third-party/licenses/readdir-glob@1.1.3"
+  },
+  {
+    "name": "brace-expansion",
+    "version": "2.1.7",
+    "license": "MIT",
+    "source": "git://github.com/juliangruber/brace-expansion.git",
+    "path": "third-party/licenses/brace-expansion@2.1.7"
+  },
+  {
+    "name": "minimatch",
+    "version": "5.1.9",
+    "license": "ISC",
+    "source": "git://github.com/isaacs/minimatch.git",
+    "path": "third-party/licenses/minimatch@5.1.9"
+  },
+  {
+    "name": "safe-buffer",
+    "version": "5.2.1",
+    "license": "MIT",
+    "source": "git://github.com/feross/safe-buffer.git",
+    "path": "third-party/licenses/safe-buffer@5.2.1"
+  },
+  {
+    "name": "saxes",
+    "version": "5.0.1",
+    "license": "ISC",
+    "source": "https://github.com/lddubeau/saxes.git",
+    "path": "third-party/licenses/saxes@5.0.1"
+  },
+  {
+    "name": "setimmediate",
+    "version": "1.0.5",
+    "license": "MIT",
+    "source": "YuzuJS/setImmediate",
+    "path": "third-party/licenses/setimmediate@1.0.5"
+  },
+  {
+    "name": "sql.js",
+    "version": "1.14.2",
+    "license": "MIT",
+    "source": "http://github.com/sql-js/sql.js.git",
+    "path": "third-party/licenses/sql.js@1.14.2"
+  },
+  {
+    "name": "string_decoder",
+    "version": "1.3.0",
+    "license": "MIT",
+    "source": "git://github.com/nodejs/string_decoder.git",
+    "path": "third-party/licenses/string_decoder@1.3.0"
+  },
+  {
+    "name": "tar-stream",
+    "version": "2.2.0",
+    "license": "MIT",
+    "source": "git+https://github.com/mafintosh/tar-stream.git",
+    "path": "third-party/licenses/tar-stream@2.2.0"
+  },
+  {
+    "name": "tmp",
+    "version": "0.2.7",
+    "license": "MIT",
+    "source": "https://github.com/raszi/node-tmp.git",
+    "path": "third-party/licenses/tmp@0.2.7"
+  },
+  {
+    "name": "universalify",
+    "version": "2.0.1",
+    "license": "MIT",
+    "source": "git+https://github.com/RyanZim/universalify.git",
+    "path": "third-party/licenses/universalify@2.0.1"
+  },
+  {
+    "name": "unzipper",
+    "version": "0.12.5",
+    "license": "MIT",
+    "source": "https://github.com/ZJONSSON/node-unzipper.git",
+    "path": "third-party/licenses/unzipper@0.12.5"
+  },
+  {
+    "name": "fs-extra",
+    "version": "11.3.1",
+    "license": "MIT",
+    "source": "https://github.com/jprichardson/node-fs-extra",
+    "path": "third-party/licenses/fs-extra@11.3.1"
+  },
+  {
+    "name": "util-deprecate",
+    "version": "1.0.2",
+    "license": "MIT",
+    "source": "git://github.com/TooTallNate/util-deprecate.git",
+    "path": "third-party/licenses/util-deprecate@1.0.2"
+  },
+  {
+    "name": "uuid",
+    "version": "11.1.1",
+    "license": "MIT",
+    "source": "https://github.com/uuidjs/uuid.git",
+    "path": "third-party/licenses/uuid@11.1.1"
+  },
+  {
+    "name": "wrappy",
+    "version": "1.0.2",
+    "license": "ISC",
+    "source": "https://github.com/npm/wrappy",
+    "path": "third-party/licenses/wrappy@1.0.2"
+  },
+  {
+    "name": "xmlchars",
+    "version": "2.2.0",
+    "license": "MIT",
+    "source": "https://github.com/lddubeau/xmlchars.git",
+    "path": "third-party/licenses/xmlchars@2.2.0"
+  },
+  {
+    "name": "zip-stream",
+    "version": "4.1.1",
+    "license": "MIT",
+    "source": "https://github.com/archiverjs/node-zip-stream.git",
+    "path": "third-party/licenses/zip-stream@4.1.1"
+  },
+  {
+    "name": "archiver-utils",
+    "version": "3.0.4",
+    "license": "MIT",
+    "source": "https://github.com/archiverjs/archiver-utils.git",
+    "path": "third-party/licenses/archiver-utils@3.0.4"
+  }
+]

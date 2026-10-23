@@ -1,0 +1,111 @@
+{
+  "name": "classroom-points",
+  "version": "0.7.4-beta.1",
+  "description": "课痕：离线课堂互动与记录",
+  "main": "src/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.cjs",
+    "pack:mac": "node scripts/build-mac-zip.cjs",
+    "build:win": "electron-builder --win nsis --x64",
+    "test:ui": "electron scripts/smoke.cjs",
+    "test:planning-ui": "electron scripts/planning-smoke.cjs",
+    "test:feedback-ui": "electron scripts/feedback-smoke.cjs",
+    "build:portable": "node scripts/build-portable.cjs",
+    "test:workspace-ui": "electron scripts/workspace-smoke.cjs",
+    "test:roster-ui": "electron scripts/roster-scoring-smoke.cjs",
+    "test:seating-ui": "electron scripts/seating-simple-smoke.cjs",
+    "test:brand-ui": "electron scripts/brand-smoke.cjs",
+    "test:reliability-ui": "electron scripts/reliability-smoke.cjs"
+  },
+  "keywords": [],
+  "author": "tideyzhang",
+  "license": "MIT",
+  "dependencies": {
+    "exceljs": "^4.4.0",
+    "sql.js": "^1.14.2"
+  },
+  "devDependencies": {
+    "electron": "^44.3.0",
+    "electron-builder": "^26.15.3",
+    "archiver": "5.3.2",
+    "@electron/asar": "3.4.1",
+    "resedit": "1.7.2"
+  },
+  "build": {
+    "appId": "local.classroom.points",
+    "productName": "课痕",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json",
+      "LICENSE",
+      "THIRD_PARTY_NOTICES.md",
+      "BRAND.md",
+      "third-party/**/*"
+    ],
+    "asar": true,
+    "mac": {
+      "target": "dir",
+      "identity": null,
+      "extendInfo": {
+        "LSUIElement": false
+      },
+      "icon": "build/icon.icns"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "signExecutable": false,
+      "icon": "build/icon.ico",
+      "artifactName": "课痕-${version}-Windows-${arch}-安装版.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false
+    },
+    "toolsets": {
+      "nsis": "1.2.1"
+    },
+    "extraResources": [
+      {
+        "from": "LICENSE",
+        "to": "licenses/课痕-MIT-LICENSE.txt"
+      },
+      {
+        "from": "THIRD_PARTY_NOTICES.md",
+        "to": "licenses/THIRD_PARTY_NOTICES.md"
+      },
+      {
+        "from": "third-party",
+        "to": "licenses/third-party"
+      }
+    ]
+  },
+  "overrides": {
+    "exceljs": {
+      "uuid": "^11.1.1",
+      "unzipper": "0.12.5"
+    },
+    "brace-expansion@1": "1.1.21",
+    "brace-expansion@2": "2.1.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tideyzhang/kehen.git"
+  },
+  "homepage": "https://github.com/tideyzhang/kehen#readme",
+  "bugs": {
+    "url": "https://github.com/tideyzhang/kehen/issues"
+  }
+}

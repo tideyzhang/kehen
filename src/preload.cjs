@@ -1,0 +1,2 @@
+const {contextBridge,ipcRenderer}=require('electron');
+contextBridge.exposeInMainWorld('classroom',{call:(action,p)=>ipcRenderer.invoke('classroom',action,p),onNavigate:fn=>ipcRenderer.on('navigate',(_,p)=>fn(p)),onDataChange:fn=>ipcRenderer.on('data-changed',(_,p)=>fn(p)),onScheduleChange:fn=>ipcRenderer.on('schedule-changed',()=>fn()),onScheduleError:fn=>ipcRenderer.on('schedule-error',(_,message)=>fn(message))});

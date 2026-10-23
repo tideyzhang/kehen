@@ -1,0 +1,17 @@
+const {createRulesWorkbook}=require('./helpers/legacy-rules.cjs');
+const {test}=require('node:test'),assert=require('node:assert/strict'),Excel=require('exceljs');
+const seating=require('../src/seating.cjs'),{parseRulesWorkbook}=require('../src/seat-rules-excel.cjs'),{rangeCell,participationCell}=require('../src/seat-rules-grid.cjs');
+async function fixture(){const students=Array.from({length:8},(_,i)=>({id:'s'+i,number:'00'+i,name:'学生'+i})),c={name:'空位测试班',rows:8,cols:8,layout:Object.fromEntries(students.map((s,i)=>['0,'+i,s.id]))},rules=seating.defaults(c,students);rules.seats=Object.fromEntries(Array.from({length:64},(_,i)=>[`${Math.floor(i/8)},${i%8}`,'']));rules.pairs=[['s0','s7']];const wb=new Excel.Workbook();await wb.xlsx.load(await createRulesWorkbook(c,students,rules).xlsx.writeBuffer());return {students,c,rules,wb};}
+test('fixed empty, spare category seats, directly assigned student and excluded roster survive workbook and repeated generation',async()=>{
+ const {c,students,rules,wb}=await fixture(),grid=wb.getWorksheet('座位范围'),roster=wb.getWorksheet('学生安排');
+ grid.getCell(...rangeCell(c,0,0)).value='固定空位';grid.getCell(...rangeCell(c,7,0)).value='固定：000 学生0';roster.getCell('F9').value='不在班';
+ for(let i=0;i<3;i++)roster.getCell(i+2,3).value='A区';for(let col=0;col<8;col++)grid.getCell(...rangeCell(c,2,col)).value='A区';
+ grid.getCell(...rangeCell(c,6,0)).value='可选空位';grid.getCell(...participationCell(c,6,0)).value='固定空位';
+ const parsed=parseRulesWorkbook(wb,c,students,rules);assert.equal(parsed.students.s0.fixedSeat,'7,0');assert.equal(parsed.students.s7.excluded,true);assert.equal(Object.hasOwn(parsed.seats,'0,0'),false);assert.equal(Object.hasOwn(parsed.seats,'6,0'),true);
+ const resultPositions=new Set();for(let i=0;i<40;i++){const out=seating.generate(c,students,parsed);assert.equal(out.placed,7);assert.equal(out.layout['7,0'],'s0');assert.equal(out.layout['0,0'],undefined);assert.equal(Object.values(out.layout).includes('s7'),false);assert.equal(new Set(Object.values(out.layout)).size,7);for(let col=0;col<8;col++){const id=out.layout['2,'+col];if(id)assert.equal(parsed.students[id].category,'A区');}resultPositions.add(Object.keys(out.layout).find(k=>out.layout[k]==='s3'));}assert.ok(resultPositions.size>1);
+ const restored=parseRulesWorkbook(createRulesWorkbook(c,students,parsed),c,students,parsed);assert.deepEqual(restored,parsed);
+});
+test('duplicate or absent fixed targets and invalid membership reject whole import',async()=>{
+ for(const mutate of [(g,r)=>{g.getCell('B5').value='固定：000';g.getCell('C5').value='固定：000';},(g,r)=>{g.getCell('B5').value='固定：007';r.getCell('F9').value='不在班';},(g,r)=>g.getCell('B5').value='固定：不存在',(g,r)=>r.getCell('F2').value='请假']){const {c,students,rules,wb}=await fixture(),before=JSON.stringify(rules);mutate(wb.getWorksheet('座位范围'),wb.getWorksheet('学生安排'));assert.throws(()=>parseRulesWorkbook(wb,c,students,rules));assert.equal(JSON.stringify(rules),before);}
+});
+test('excluded students do not consume capacity and fixed target collisions are rejected',()=>{const c={rows:1,cols:2,layout:{'0,0':'a','0,1':'b'}},students=[{id:'a',name:'甲'},{id:'b',name:'乙'}],r=seating.defaults(c,students);r.students.b.excluded=true;delete r.seats['0,1'];assert.equal(seating.generate(c,students,r).placed,1);r.students.b.excluded=false;r.seats['0,1']='';r.students.a.fixedSeat='0,0';r.students.b.fixedSeat='0,0';assert.throws(()=>seating.validate(c,students,r),/同一个座位/);});

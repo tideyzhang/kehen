@@ -1,0 +1,10 @@
+name: 改进建议
+description: 描述课堂使用场景和希望改善的操作
+body:
+  - type: textarea
+    id: request
+    attributes:
+      label: 使用场景、当前困难和期望效果
+      description: 请使用虚构示例，避免包含学生个人信息。
+    validations:
+      required: true

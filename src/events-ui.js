@@ -1,0 +1,59 @@
+const eventEntry={
+  context:null,kind:null,scoreChoice:'none',customScore:'',ids:[],notes:{},draft:[],rows:[],tab:'edit',
+  prepare(){if(!['none','custom'].includes(this.scoreChoice)&&!state.data.scores.some(v=>String(v)===String(this.scoreChoice)))this.scoreChoice='none';if(this.context&&!state.data.classes.some(c=>c.id===this.context.classId)&&!this.locked())this.context=null;if(!this.context){const c=currentClass();this.context={classId:c?.id||'',date:dateLocal(),subject:(active()?.class_id===c?.id?active().subject:state.subject)||state.data.subjects[0],sessionId:null,lesson:''};}if(!state.data.eventKinds.includes(this.kind))this.kind=state.data.eventKinds[0]||null;},
+  people(){return state.data.students.filter(s=>s.class_id===this.context?.classId&&s.active);},
+  filter(){const c=this.context;return {classId:c.classId||'none',subject:c.subject,from:c.date,to:c.date,...(c.sessionId?{sessionId:c.sessionId}:c.lesson?{lesson:c.lesson}:{})};},
+  async load(){this.prepare();this.rows=await call('events',this.filter());},
+  locked(){return !!(this.ids.length||this.draft.length);},
+  label(){const c=this.context,ss=state.data.sessions.find(s=>s.id===c.sessionId);return `${state.data.classes.find(x=>x.id===c.classId)?.name||'请选择班级'} · ${c.date} · ${c.subject} · ${ss?new Date(ss.start).toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'}):c.lesson||'按当天记录'}`;},
+  page(){this.prepare();const c=this.context,locked=this.locked(),sessions=state.data.sessions.filter(s=>s.class_id===c.classId&&s.subject===c.subject&&dateLocal(new Date(s.start))===c.date),people=this.people(),byId=new Map(state.data.students.map(s=>[s.id,s]));return `<div class="entry-heading"><div><span class="tag">课后补录 · 无需开始课堂</span><h1>课堂情况</h1></div></div>
+    <section class="entry-context-section"><div class="event-context">${state.data.classes.length>1?`<label>班级<select id="entryClass" ${locked?'disabled':''}><option value="">选择班级</option>${state.data.classes.map(s=>`<option value="${s.id}" ${c.classId===s.id?'selected':''}>${esc(s.name)}</option>`).join('')}</select></label>`:`<div class="entry-class-name">${esc(currentClass()?.name||'请先设置班级')}</div>`}<label>上课日期<input id="entryDate" type="date" max="${dateLocal()}" value="${esc(c.date)}" ${locked?'disabled':''}></label><label>科目<select id="entrySubject" ${locked?'disabled':''}>${state.data.subjects.map(s=>`<option ${s===c.subject?'selected':''}>${esc(s)}</option>`).join('')}</select></label><label>课次（可选）<select id="entrySession" ${locked?'disabled':''}><option value="">不指定 · 按当天记录</option>${sessions.map(s=>`<option value="${s.id}" ${s.id===c.sessionId?'selected':''}>${new Date(s.start).toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})} ${s.end?'已结束':'进行中'}</option>`).join('')}</select></label>${!c.sessionId?`<label>课节名称（可选）<input id="entryLesson" placeholder="可不填；例如：第3节" maxlength="50" value="${esc(c.lesson)}" ${locked?'disabled':''}></label>`:''}</div><p class="muted">${locked?'请保存或清空待录内容后再切换归属。':'核对日期与科目后录入；课次可不选。暂无记录不代表已确认无异常。'} 默认仅记录；选择分值后会同时保存积分。${!c.sessionId&&!c.lesson?' 已保存记录显示当天该科目的全部课次。':''}</p></section>
+    <div class="tabs"><button data-entry-tab="edit" class="${this.tab==='edit'?'active':''}">录入情况${this.draft.length?' · 有待保存':''}</button><button data-entry-tab="history" class="${this.tab==='history'?'active':''}">已保存记录（${this.rows.filter(r=>!r.voided_at).length}）</button></div>
+    ${this.tab==='history'?`<section><div class="bar"><h2>${esc(this.label())}</h2><button data-action="entryExport">导出记录</button></div>${this.rows.length?`<div class="table-wrap"><table><thead><tr><th>学生</th><th>归属</th><th>情况</th><th>个人备注</th><th>积分</th><th>状态</th><th></th></tr></thead><tbody>${this.rows.map(r=>`<tr><td>${esc(r.number)} ${esc(r.name)}</td><td>${esc(r.lesson||(r.session_id?new Date(state.data.sessions.find(s=>s.id===r.session_id)?.start).toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'}):'按当天记录'))}</td><td>${esc(r.kind)}</td><td class="event-note-text">${esc(r.note)||'—'}</td><td>${r.point_id?num(r.score_amount)+' 分'+(r.score_reversed?'（已撤销）':''):'不计分'}</td><td>${r.voided_at?'已撤销':'有效'}</td><td>${r.voided_at?'':`<button data-entry-void="${r.id}">撤销</button>`}</td></tr>`).join('')}</tbody></table></div>`:'<p class="muted">当前范围暂无记录。</p>'}</section>`:
+    `<div class="event-workspace"><section><h2>1　选择情况</h2><div class="chips">${state.data.eventKinds.map(k=>`<button data-entry-kind="${esc(k)}" aria-pressed="${k===this.kind}" class="${k===this.kind?'active':''}">${esc(k)}</button>`).join('')||'<p>暂无情况类型，请在设置中添加。</p>'}</div><h3>本次情况对应积分</h3>${entryScoreOptions('entry',this.scoreChoice,this.customScore,true)}<h2>2　点选学生，可多选</h2>${this.seats()}${this.ids.length?`<h3>个人备注（可选）</h3>${this.ids.map(id=>`<label class="individual-note">${esc(byId.get(id)?.name)}<input data-entry-note="${id}" maxlength="500" value="${esc(this.notes[id]||'')}" placeholder="只属于这名学生的备注"></label>`).join('')}`:''}<div class="bar"><span>已选 ${this.ids.length} 人</span><button data-action="entryClearSelection" ${!this.ids.length?'disabled':''}>清空选择</button><button class="primary" data-action="entryAdd" ${!this.ids.length||!this.kind?'disabled':''}>加入待保存 · ${esc(this.kind||'请选择情况')}</button></div></section>
+    <section><h2>3　核对后保存</h2><p class="muted">${esc(this.label())}</p>${this.draft.map((r,i)=>`<div class="draft-event"><div class="bar"><strong>${esc(byId.get(r.studentId)?.name)}</strong><span class="tag">${esc(r.kind)}</span><span>${esc(entryScoreLabel(r.value))}</span><button data-entry-remove="${i}">移除</button></div><label>个人备注<input data-draft-note="${i}" maxlength="500" value="${esc(r.note)}" placeholder="可填写或修改此人的备注"></label></div>`).join('')||'<p class="muted">添加的情况将在这里等待核对。</p>'}<div class="bar"><button class="primary" data-action="entryReview" ${!this.draft.length||this.ids.length?'disabled':''}>核对并保存（${this.draft.length}）</button><button data-action="entryDiscard" ${!this.locked()?'disabled':''}>清空待录内容</button></div>${this.ids.length?'<p class="muted">还有选中学生未加入待保存。</p>':''}</section></div>`}`;},
+  seats(prefix='entry'){
+    const c=state.data.classes.find(c=>c.id===this.context.classId),people=this.people(),byId=new Map(people.map(s=>[s.id,s]));
+    const button=s=>`<button data-${prefix}-student="${s.id}" class="${this.ids.includes(s.id)?'active':''}" aria-pressed="${this.ids.includes(s.id)}" ${!this.context.date?'disabled':''}><strong>${esc(s.name)}</strong><small>${esc(s.number)}</small></button>`;
+    if(!c||!Object.values(c.layout).some(id=>byId.has(id)))return `<p class="muted">未设置座位，暂按名单显示；可在设置中导入座位表。</p><div class="people-grid">${people.map(button).join('')||'<p>请先选择有名单的班级。</p>'}</div>`;
+    const cells=[];for(let row=c.rows-1;row>=0;row--)for(let col=0;col<c.cols;col++){const id=c.layout[`${row},${col}`],s=byId.get(id);cells.push(s?button(s):`<div class="${id==='aisle'?'aisle':'empty'}" aria-label="${id==='aisle'?'过道':'空位'}"></div>`);}
+    const unplaced=people.filter(s=>!Object.values(c.layout).includes(s.id));
+    return `<div class="entry-seat-scroll"><div class="grid entry-seats" data-cols="${c.cols}">${cells.join('')}</div><div class="stage">讲台 · 教师视角</div></div>${unplaced.length?`<h3>未排座学生</h3><div class="people-grid">${unplaced.map(button).join('')}</div>`:''}`;
+  },
+  async action(action){
+    if(action==='events'){await this.load();state.view='events';render();await resize();return true;}
+    if(action==='entryClearSelection'){this.ids=[];this.notes={};render();return true;}
+    if(action==='entryAdd'){
+      if(!this.kind||!this.ids.length)throw Error('请选择情况与学生');const value=entryScoreValue(this.scoreChoice,this.customScore);let added=0;
+      for(const studentId of this.ids){if(this.draft.some(r=>r.studentId===studentId&&r.kind===this.kind)||this.rows.some(r=>r.student_id===studentId&&r.kind===this.kind&&!r.voided_at&&(r.session_id||null)===(this.context.sessionId||null)&&(r.lesson||'')===(this.context.lesson||'')))continue;this.draft.push({studentId,kind:this.kind,value,note:this.notes[studentId]||''});added++;}
+      this.ids=[];this.notes={};render();toast(`加入 ${added} 条；重复情况已跳过`);return true;
+    }
+    if(action==='entryDiscard'){showDialog('<h2>清空待录内容？</h2><p>尚未保存的选择与备注将被清空，已保存记录保留。</p><button class="danger" data-action="entryConfirmDiscard">确认清空</button>');return true;}
+    if(action==='entryConfirmDiscard'){this.ids=[];this.notes={};this.draft=[];$('#modal').close();render();return true;}
+    if(action==='entryReview'){showDialog(`<h2>确认保存 ${this.draft.length} 条情况？</h2><p>${esc(this.label())}</p><p>请核对每名学生的情况、备注与分值。</p><ul>${this.draft.map(r=>`<li>${esc(state.data.students.find(s=>s.id===r.studentId)?.name)} · ${esc(r.kind)} · ${esc(entryScoreLabel(r.value))}</li>`).join('')}</ul><button class="primary" data-action="entrySave">确认保存</button>`);return true;}
+    if(action==='entrySave'){const n=await call('recordEventBatch',{...this.context,entries:this.draft});this.draft=[];this.tab='history';$('#modal').close();await refresh();await this.load();if(active()?.absent.includes(state.selected))state.selected=null;render();toast(`已保存 ${n} 条情况，相同记录不重复添加`);return true;}
+    if(action==='entryExport'){reviewExport('课堂情况',`${this.label()} · ${this.rows.length} 条记录 · Excel .xlsx`,'entryConfirmExport');return true;}
+    if(action==='entryConfirmExport'){if(await call('exportEvents',{filter:this.filter()}))toast('情况及个人备注已导出');$('#modal').close();return true;}
+    if(action==='addEventKind'){const kind=$('#newEventKind').value.trim();await call('eventKinds',{kinds:[...state.data.eventKinds,kind]});await refresh();toast('情况类型已添加');return true;}
+    return false;
+  },
+  async click(el){
+    if(el.dataset.entryScore!==undefined){this.scoreChoice=el.dataset.entryScore;}
+    else if(el.dataset.entryKind){this.kind=el.dataset.entryKind;}
+    else if(el.dataset.entryStudent){const id=el.dataset.entryStudent,i=this.ids.indexOf(id);if(i<0)this.ids.push(id);else this.ids.splice(i,1);}
+    else if(el.dataset.entryRemove!==undefined)this.draft.splice(Number(el.dataset.entryRemove),1);
+    else if(el.dataset.entryTab){this.tab=el.dataset.entryTab;await this.load();}
+    else if(el.dataset.entryVoid){const r=this.rows.find(r=>r.id===el.dataset.entryVoid);showDialog(`<h2>撤销课堂情况？</h2><p>${esc(r.name)} · ${esc(r.kind)}</p><p>关联积分将一并撤销；已撤销的积分不会重复抵消。</p><button class="danger" data-entry-confirm-void="${r.id}">确认撤销</button>`);return true;}
+    else if(el.dataset.entryConfirmVoid){await call('voidEvent',{id:el.dataset.entryConfirmVoid});$('#modal').close();await refresh();await this.load();}
+    else if(el.dataset.deleteKind!==undefined){showDialog(`<h2>删除“${esc(el.dataset.deleteKind)}”？</h2><p>不再显示为新录入选项；历史记录及备注保留。待保存草稿中使用此类型的条目需要移除或更换。</p><button class="danger" data-confirm-delete-kind="${esc(el.dataset.deleteKind)}">确认删除类型</button>`);return true;}
+    else if(el.dataset.confirmDeleteKind!==undefined){await call('eventKinds',{kinds:state.data.eventKinds.filter(k=>k!==el.dataset.confirmDeleteKind)});$('#modal').close();await refresh();}
+    else return false;render();return true;
+  },
+  async change(el){
+    const keys={entryClass:'classId',entryDate:'date',entrySubject:'subject',entrySession:'sessionId',entryLesson:'lesson'};
+    if(!keys[el.id])return false;if(this.locked()){render();return true;}
+    this.notes={};this.scrollTop=0;this.context[keys[el.id]]=el.id==='entryLesson'?el.value.trim():el.value;if(['entryClass','entryDate','entrySubject'].includes(el.id)){this.context.sessionId=null;this.context.lesson='';}
+    if(el.id==='entrySession')this.context.lesson='';await this.load();render();return true;
+  }
+};
+document.addEventListener('input',e=>{const el=e.target;if(el.id==='entryCustomScore')eventEntry.customScore=el.value;if(el.dataset.entryNote)eventEntry.notes[el.dataset.entryNote]=el.value;if(el.dataset.draftNote!==undefined)eventEntry.draft[Number(el.dataset.draftNote)].note=el.value;});

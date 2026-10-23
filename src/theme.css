@@ -1,0 +1,31 @@
+/* Shared light palette: logo-inspired teal, neutral reading surfaces, semantic feedback. */
+:root{
+  color-scheme:light;
+  --brand:#0d6b63;
+  --brand-hover:#09554f;
+  --brand-soft:#e3f1ec;
+  --on-brand:#ffffff;
+  --canvas:#f4f7f5;
+  --surface:#ffffff;
+  --surface-muted:#edf2ef;
+  --text:#263832;
+  --muted:#52675f;
+  --border:#ccd8d1;
+  --control-border:#9aafa5;
+  --selection-outline:#6f9c8b;
+  --focus:#08746a;
+  --danger:#a53d36;
+  --danger-soft:#fbefed;
+  --warning:#84531d;
+  --warning-fill:#9b5a20;
+  --warning-soft:#fff3dd;
+  --success:#206547;
+  --success-soft:#e9f5ec;
+  --disabled-text:#526b60;
+  --disabled-bg:#e7ede9;
+  --overlay:rgba(22,43,35,.3);
+  --shadow:rgba(22,43,35,.12);
+}
+input[type="checkbox"],input[type="radio"]{accent-color:var(--brand)}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:1}
+::selection{background:var(--brand-soft);color:var(--text)}

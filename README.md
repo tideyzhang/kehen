@@ -101,11 +101,11 @@
 
 | 系统 | 交付形式 | 运行方式 |
 | --- | --- | --- |
-| Windows x64 | [Windows 安装版](https://github.com/tideyzhang/kehen/releases/download/v0.7.4-beta.1/%E8%AF%BE%E7%97%95-0.7.4-beta.1-Windows-x64-%E5%AE%89%E8%A3%85%E7%89%88.exe) | 按安装向导安装后运行 |
-| Windows x64 | [Windows 便携版](https://github.com/tideyzhang/kehen/releases/download/v0.7.4-beta.1/%E8%AF%BE%E7%97%95-0.7.4-beta.1-Windows-x64-%E4%BE%BF%E6%90%BA%E7%89%88.zip) | 完整解压，运行其中的程序；保留全部文件 |
-| macOS Apple 芯片 | [Mac Apple 芯片版](https://github.com/tideyzhang/kehen/releases/download/v0.7.4-beta.1/%E8%AF%BE%E7%97%95-0.7.4-beta.1-macOS-arm64.zip) | 解压后打开 `课痕.app` |
+| Windows x64 | [Windows 安装版](https://github.com/tideyzhang/kehen/releases/download/v0.7.4-beta.1/kehen-0.7.4-beta.1-Windows-x64-setup.exe) | 按安装向导安装后运行 |
+| Windows x64 | [Windows 便携版](https://github.com/tideyzhang/kehen/releases/download/v0.7.4-beta.1/kehen-0.7.4-beta.1-Windows-x64-portable.zip) | 完整解压，运行其中的程序；保留全部文件 |
+| macOS Apple 芯片 | [Mac Apple 芯片版](https://github.com/tideyzhang/kehen/releases/download/v0.7.4-beta.1/kehen-0.7.4-beta.1-macOS-arm64.zip) | 解压后打开 `课痕.app` |
 
-便携包解压后的顶层文件夹与 ZIP 同名（不含扩展名），内部仍运行 `课痕.exe`。下载附件可用 `SHA256SUMS.txt` 校验。
+便携包解压后的顶层文件夹为 `课痕-0.7.4-beta.1-Windows-x64-便携版`，内部仍运行 `课痕.exe`。GitHub 会改写中文附件名，因此线上采用 `kehen-版本-系统-架构` 文件名，程序及解压目录保留中文。下载附件可用同一 Release 的 `SHA256SUMS.txt` 校验。
 
 从 [Releases 下载当前测试版](https://github.com/tideyzhang/kehen/releases/tag/v0.7.4-beta.1)。请选择下方安装版或便携包，GitHub 自动生成的 Source code 是源码，不能直接作为程序运行；本地构建产物位于 `dist/`。便携版不要在压缩包中直接运行，换电脑前退出程序并复制整个文件夹。
 

@@ -8,9 +8,10 @@
 
 1. 在 main 上完成集中修改，更新 package.json 和锁定文件中的版本，运行单元与受影响的桌面流程测试。
 2. 在 Windows 构建安装版和便携包，在 Mac 构建 arm64 应用 ZIP；运行 scripts/verify-release.cjs，检查最终附件及第三方声明。
-3. 更新 CHANGELOG、数据兼容范围和验证边界，创建与程序版本一致的 v 开头标签。
-4. 新建 Release 草稿，上传三份附件及校验文件；下载检查后发布。带 beta 后缀的版本勾选 Pre-release。
-5. 已公开的标签及附件不替换内容，修正通过新版本发布。当前不启用自动公开发行。
+3. 执行 `node scripts/prepare-github-release.cjs`，在 `dist/github/` 生成 GitHub 可保留的 ASCII 附件名及对应校验清单；中文原始构建包保留，ZIP 内中文版本目录不变。
+4. 更新 CHANGELOG、数据兼容范围和验证边界，创建与程序版本一致的 v 开头标签。
+5. 新建 Release 草稿，上传三份附件及校验文件；下载检查后发布。带 beta 后缀的版本勾选 Pre-release。
+6. 已公开的标签及附件不替换内容，修正通过新版本发布。当前不启用自动公开发行。
 
 ## 数据兼容与验收
 
